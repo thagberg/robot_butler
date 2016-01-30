@@ -20,7 +20,7 @@ public class NPC : Clickable {
 	void Talk(Robot r) {
 		GameObject dialogueText = GameObject.Find("Dialogue Text");
 		Text t = dialogueText.GetComponent<Text>();
-		t.text = dialogue.getDialogue(r);
+		t.text = dialogue.getDialogue(gameObject.name, r);
 		//Debug.Log(dialogue.getDialogue(r));
 	}
 

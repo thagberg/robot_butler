@@ -1,26 +1,34 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Dialogue : MonoBehaviour{
 
-	public string defaultLine;
-	public string specialLine;
-	public string itemToFind;
+	public Dictionary<string, Dictionary<string, string>> lines;
 
-	public Dialogue(string defaultLine, string specialLine, string itemToFind) {
-		this.defaultLine = defaultLine;
-		this.specialLine = specialLine;
-		this.itemToFind = itemToFind;
+	public Dialogue() {
+		lines = new Dictionary<string, Dictionary<string, string>>();
+
+		lines.Add("Lazy Father", new Dictionary<string, string>());
+		lines["Lazy Father"].Add("", "*BURP* Hey! Joffrey! Get me somethin' to read!");
+		lines["Lazy Father"].Add("DirtyMagazine", "*Wheeze* Hmmm... That looks good...");
+
+		lines.Add("Lazy Mother", new Dictionary<string, string>());
+		lines["Lazy Mother"].Add("", "I have nothing to say.");
+
+		lines.Add("Lazy Child", new Dictionary<string, string>());
+		lines["Lazy Child"].Add("", "I have nothing to say.");
 	}
 
-	public string getDialogue(Robot r) {
-		// TODO: look through robot's inventory
-		//		 and return the special line if 
-		//		 the itemToFind is there
-		if (itemToFind != null && !itemToFind.Equals("") && r.holdingObjectName.Equals(itemToFind)) {
-			return specialLine;
-		} else {
-			return defaultLine;
+	public string getDialogue(string name, Robot r) {
+		if (lines.ContainsKey(name)) {
+			Dictionary<string, string> lookup = lines[name];
+			if (lookup.ContainsKey(r.holdingObjectName)) {
+				return lookup[r.holdingObjectName];
+			} else {
+				return lookup[""];
+			}
 		}
+		return "";
 	}
 }
