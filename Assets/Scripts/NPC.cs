@@ -33,6 +33,8 @@ public class NPC : Clickable {
 			if (r.holdingObjectName.Equals(item)) {
 				holdingObjectName = r.holdingObjectName;
 				r.holdingObjectName = "";
+				GameObject holdingObject = GameObject.Find(holdingObjectName);
+				holdingObject.GetComponent<Obtainable>().used = true;
 
 				if (holdingObjectName.Equals(killItemName)) {
 					isAlive = false;
@@ -43,11 +45,17 @@ public class NPC : Clickable {
 
 //	void OnCollisionEnter(Collision collision) {
 	void OnTriggerEnter(Collider other) {
-		GameObject player = other.gameObject;
-		if (player.name.Equals("Robot Butler")) {
-			Robot r = player.GetComponent<Robot>();
-			Talk(r);
-			TakeItem(r);
+		if (isAlive) {
+			GameObject player = other.gameObject;
+			if (player.name.Equals("Robot Butler")) {
+				Robot r = player.GetComponent<Robot>();
+				Talk(r);
+				TakeItem(r);
+			}
+		} else {
+			GameObject dialogueText = GameObject.Find("Dialogue Text");
+			Text t = dialogueText.GetComponent<Text>();
+			t.text = "It's dead... What do you think it's going to say?";
 		}
 	}
 
