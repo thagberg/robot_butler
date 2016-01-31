@@ -12,6 +12,7 @@ public class Dialogue : MonoBehaviour{
 		lines.Add("Lazy Father", new Dictionary<string, string>());
 		lines["Lazy Father"].Add("", "*BURP* Hey! Joffrey! Get me somethin' to read!");
 		lines["Lazy Father"].Add("DirtyMagazine", "*Wheeze* Hmmm... That looks good...");
+		lines["Lazy Father"].Add("ScholarlyBook", "*Hack hack* What am I supposed to do with this garbage?!");
 
 		lines.Add("Lazy Mother", new Dictionary<string, string>());
 		lines["Lazy Mother"].Add("", "I have nothing to say.");
