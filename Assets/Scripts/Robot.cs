@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections;
 
 public class Robot : MonoBehaviour {
@@ -11,10 +12,20 @@ public class Robot : MonoBehaviour {
 
 	private bool playerHasControl = true;	// Set to false when robot is out of the user's control.
 
+	// Tracks the game ending conditions.
+	private NPC father;
+	private NPC mother;
+	private NPC child;
+	private int numCompletedTasks = 0;
+	private static int MAX_NUM_COMPLETED_TASKS = 10;
+
 	// Use this for initialization
 	void Start () {
+		father = GameObject.Find("Lazy Father").GetComponent<NPC>();
+		mother  = GameObject.Find("Lazy Mother").GetComponent<NPC>();
+		child = GameObject.Find("Lazy Child").GetComponent<NPC>();
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
 		if (moving) {
@@ -33,11 +44,23 @@ public class Robot : MonoBehaviour {
 			GameObject holdingObject = GameObject.Find(holdingObjectName);
 			holdingObject.transform.position = transform.position;
 		}
+
+		// Check for the endings.
+		if (AllFamilyMembersDead()) {
+			SceneManager.LoadScene("EndingA");
+		} else if (numCompletedTasks >= MAX_NUM_COMPLETED_TASKS) {
+			SceneManager.LoadScene("EndingB");
+		}
 	}
 
 	// Used to take control away from the player, like during a door transition.
 	public void SetPlayerHasControl(bool b) {
 		playerHasControl = b;
+	}
+
+	// Used when an a task is completed successfully.
+	public void IncrementNumCompletedTasks() {
+		numCompletedTasks++;
 	}
 
 	public void MoveToLocation(Vector3 location) {
@@ -50,5 +73,9 @@ public class Robot : MonoBehaviour {
 	// True if the robot is within the interaction distance of the given location.
 	public bool CloseEnough(Vector3 location, float distance) {
 		return Vector3.Distance(transform.position, location) <= distance;
+	}
+
+	private bool AllFamilyMembersDead() {
+		return !father.IsAlive() && !mother.IsAlive() && !child.IsAlive();
 	}
 }
