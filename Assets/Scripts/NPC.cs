@@ -7,6 +7,8 @@ public class NPC : Clickable {
 
 	public Dialogue dialogue;
 
+	private bool isAlive = true;  // Is alive in the game, not alive as a unity object.
+
 	// Use this for initialization
 	void Start () {
 	
@@ -31,5 +33,9 @@ public class NPC : Clickable {
 			Robot r = player.GetComponent<Robot>();
 			Talk(r);
 		}
+	}
+
+	public bool IsAlive() {
+		return isAlive;
 	}
 }

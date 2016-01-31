@@ -2,7 +2,6 @@
 using System.Collections;
 
 public class Dialogue : MonoBehaviour{
-
 	public string defaultLine;
 	public string specialLine;
 	public string itemToFind;
