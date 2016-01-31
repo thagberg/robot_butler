@@ -32,29 +32,36 @@ public class Robot : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		if (moving) {
-			float step = speed * Time.deltaTime;
-			transform.position = Vector3.MoveTowards(transform.position, target, step);	
+		if (!Globals.isPaused) {
 
-			// Arrived at destination.
-			if (transform.position == target) {
-				target = Vector3.zero;
-				moving = false;
-				playerHasControl = true;
+			if (moving) {
+				float step = speed * Time.deltaTime;
+				transform.position = Vector3.MoveTowards(transform.position, target, step);	
+
+				// Arrived at destination.
+				if (transform.position == target) {
+					target = Vector3.zero;
+					moving = false;
+					playerHasControl = true;
+				}
+			}
+
+			if (holdingObjectName != null && !holdingObjectName.Equals("")) {
+				GameObject holdingObject = GameObject.Find(holdingObjectName);
+				holdingObject.transform.position = transform.position;
+			}
+
+			// Check for the endings.
+			if (AllFamilyMembersDead()) {
+				SceneManager.LoadScene("EndingA");
+			} else if (numCompletedTasks >= MAX_NUM_COMPLETED_TASKS) {
+				SceneManager.LoadScene("EndingB");
 			}
 		}
+	}
 
-		if (holdingObjectName != null && !holdingObjectName.Equals("")) {
-			GameObject holdingObject = GameObject.Find(holdingObjectName);
-			holdingObject.transform.position = transform.position;
-		}
-
-		// Check for the endings.
-		if (AllFamilyMembersDead()) {
-			SceneManager.LoadScene("EndingA");
-		} else if (numCompletedTasks >= MAX_NUM_COMPLETED_TASKS) {
-			SceneManager.LoadScene("EndingB");
-		}
+	void Awake() {
+		DontDestroyOnLoad(gameObject);
 	}
 
 	// Used to take control away from the player, like during a door transition.

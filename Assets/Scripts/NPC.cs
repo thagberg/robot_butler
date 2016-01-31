@@ -22,6 +22,10 @@ public class NPC : Clickable {
 	
 	}
 
+	void Awake() {
+		DontDestroyOnLoad(gameObject);
+	}
+
 	void Talk(Robot r) {
 		GameObject dialogueText = GameObject.Find("Dialogue Text");
 		Text t = dialogueText.GetComponent<Text>();

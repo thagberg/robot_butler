@@ -17,9 +17,15 @@ public class Clickable : MonoBehaviour {
 	void Update () {	
 	}
 
+	void Awake() {
+		DontDestroyOnLoad(gameObject);
+	}
+
 	void OnMouseUp() {
-		Robot r = GameObject.Find("Robot Butler").GetComponent<Robot>();
-		bool moveToExactLocation = isDoor;	// Gotta walk all the way to a door.
-		r.MoveToLocation(transform.position + standbackOffset, moveToExactLocation);
+		if (!Globals.isPaused) {
+			Robot r = GameObject.Find("Robot Butler").GetComponent<Robot>();
+			bool moveToExactLocation = isDoor;	// Gotta walk all the way to a door.
+			r.MoveToLocation(transform.position + standbackOffset, moveToExactLocation);
+		}
 	}
 }
