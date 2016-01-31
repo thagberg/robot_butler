@@ -38,24 +38,33 @@ public class NPC : Clickable {
 
 				if (holdingObjectName.Equals(killItemName)) {
 					isAlive = false;
+					gameObject.transform.Rotate(new Vector3(0.0f, 0.0f, -90.0f));  // FALL DOWN.
+					r.IncrementNumCompletedTasks();
+				} else {
+					r.IncrementNumCompletedTasks();
 				}
+				Destroy(holdingObject); 
 			}
 		}
 	}
 
-//	void OnCollisionEnter(Collision collision) {
 	void OnTriggerEnter(Collider other) {
+		GameObject player = other.gameObject;
+		Robot r;
+		if (player.name.Equals("Robot Butler")) {
+			r = player.GetComponent<Robot>();
+		} else {
+			return;
+		}
+
 		if (isAlive) {
-			GameObject player = other.gameObject;
-			if (player.name.Equals("Robot Butler")) {
-				Robot r = player.GetComponent<Robot>();
-				Talk(r);
-				TakeItem(r);
-			}
+			Talk(r);
+			TakeItem(r);
 		} else {
 			GameObject dialogueText = GameObject.Find("Dialogue Text");
 			Text t = dialogueText.GetComponent<Text>();
-			t.text = "It's dead... What do you think it's going to say?";
+			t.text = "Dead, I'm afraid... let's move on.";
+			TakeItem(r);
 		}
 	}
 
