@@ -17,13 +17,10 @@ public class Clickable : MonoBehaviour {
 	void Update () {	
 	}
 
-	void Awake() {
-		DontDestroyOnLoad(gameObject);
-	}
-
 	void OnMouseUp() {
 		if (!Globals.isPaused) {
 			Robot r = GameObject.Find("Robot Butler").GetComponent<Robot>();
+			r.SetClickTarget(gameObject);    // Indicate this game object was clicked on.
 			bool moveToExactLocation = isDoor;	// Gotta walk all the way to a door.
 			r.MoveToLocation(transform.position + standbackOffset, moveToExactLocation);
 		}

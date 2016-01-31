@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.Collections;
 using System.Collections.Generic;
@@ -6,6 +7,9 @@ using System.Collections.Generic;
 public class Puzzle : MonoBehaviour {
 
 	public List<DragTarget> targets;
+	public string successItemName;
+	public string failureItemName;
+	public string puzzleTextName;
 
 	// Use this for initialization
 	void Start () {
@@ -26,12 +30,22 @@ public class Puzzle : MonoBehaviour {
 		}
 
 		if (isDone) {
-			SceneManager.LoadScene("House");
+			Camera.main.transform.position = Globals.cameraPosition;
+			Camera.main.transform.localEulerAngles = Globals.cameraRotation;
+			Camera.main.orthographic = false;
+			GameObject.Find(puzzleTextName).GetComponent<Text>().enabled = false;
 			if (isCorrect) {
 				Debug.Log("Puzzle is correct!");
+				GameObject robotObject = GameObject.Find("Robot Butler");
+				Robot t = robotObject.GetComponent<Robot>();
+				t.holdingObjectName = successItemName;
 			} else {
 				Debug.Log("Puzzle is incorrect...");
+				GameObject robotObject = GameObject.Find("Robot Butler");
+				Robot t = robotObject.GetComponent<Robot>();
+				t.holdingObjectName = failureItemName;
 			}
+			this.enabled = false;
 		}
 	}
 }

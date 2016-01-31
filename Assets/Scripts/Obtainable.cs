@@ -21,6 +21,10 @@ public class Obtainable : Clickable {
 			GameObject robot = other.gameObject;
 			if (robot.name.Equals("Robot Butler")) {
 				Robot r = robot.GetComponent<Robot>();
+				// If this item wasn't the one that was clicked on, ignore.
+				if (!r.IsClickTarget(gameObject)) {
+					return;
+				}
 				GameObject dialogueText = GameObject.Find("Dialogue Text");
 				Text t = dialogueText.GetComponent<Text>();
 				if (r.holdingObjectName == null || r.holdingObjectName.Equals("")) {

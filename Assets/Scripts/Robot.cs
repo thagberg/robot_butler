@@ -21,7 +21,17 @@ public class Robot : MonoBehaviour {
 	private NPC mother;
 	private NPC child;
 	private int numCompletedTasks = 0;
-	private static int MAX_NUM_COMPLETED_TASKS = 10;
+	private static int MAX_NUM_COMPLETED_TASKS = 3;
+
+	private GameObject clickTarget; 
+
+	public void SetClickTarget(GameObject o) {
+		clickTarget = o;
+	}
+
+	public bool IsClickTarget(GameObject o) {
+		return clickTarget == o;
+	}
 
 	// Use this for initialization
 	void Start () {
@@ -48,7 +58,13 @@ public class Robot : MonoBehaviour {
 
 			if (holdingObjectName != null && !holdingObjectName.Equals("")) {
 				GameObject holdingObject = GameObject.Find(holdingObjectName);
-				holdingObject.transform.position = transform.position;
+				if (holdingObject == null) {
+					holdingObjectName = null;
+				} else {
+					holdingObject.transform.position = new Vector3(transform.position.x - 0.5f, 
+																   transform.position.y + 0.5f, 
+															   	   transform.position.z - 0.01f);
+				}
 			}
 
 			// Check for the endings.
@@ -58,10 +74,6 @@ public class Robot : MonoBehaviour {
 				SceneManager.LoadScene("EndingB");
 			}
 		}
-	}
-
-	void Awake() {
-		DontDestroyOnLoad(gameObject);
 	}
 
 	// Used to take control away from the player, like during a door transition.

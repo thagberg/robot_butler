@@ -19,6 +19,7 @@ public class Draggable : MonoBehaviour {
 			mousePos.z = gameObject.transform.position.z;
 			mousePos = Camera.main.ScreenToWorldPoint(mousePos);
 			gameObject.transform.position = new Vector3(mousePos.x, mousePos.y, gameObject.transform.position.z);
+			Debug.Log(gameObject.transform.position);
 		}
 	}
 

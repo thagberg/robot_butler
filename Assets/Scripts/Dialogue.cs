@@ -15,7 +15,7 @@ public class Dialogue : MonoBehaviour{
 		lines["Lazy Father"].Add("ScholarlyBook", "*Hack hack* What am I supposed to do with this garbage?!");
 
 		lines.Add("Lazy Mother", new Dictionary<string, string>());
-		lines["Lazy Mother"].Add("", "Joffrey, go fetch me some food.  I absolutely MUST eat this moment!");
+		lines["Lazy Mother"].Add("", "Joffrey, go fetch me some food.  I absolutely MUST eat this instant!");
 		lines["Lazy Mother"].Add("RawChicken", "*nom nom nom*  Oooh!  I feel so fancy!\n\n*gurgle*  Ugh... I don't feel so good...");
 		lines["Lazy Mother"].Add("CookedChicken", "Well, I guess this will _have_ to do...");
 
