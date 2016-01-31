@@ -23,6 +23,21 @@ public class Dialogue : MonoBehaviour{
 		lines["Lazy Child"].Add("", "I'm booooooored Joffrey... Find me something to play with, NOW!");
 		lines["Lazy Child"].Add("ActionFigure", "I'm BORED of playing with this toy!");
 		lines["Lazy Child"].Add("Scissors", "Yay!  Mummy would never let me play with these!  Whee!\n\nOops! *SLICE*");
+
+		lines.Add("TV", new Dictionary<string, string>());
+		lines["TV"].Add("", "It's the master's television set...\n$0 down payment with 30% APR interest...\nWhat a _great_ deal...");
+
+		lines.Add("Couch", new Dictionary<string, string>());
+		lines["Couch"].Add("", "The family sofa...\nAfter months of 'stress testing',\nit has developed a permanent imprint\nof the master's buttocks...");
+
+		lines.Add("Desk", new Dictionary<string, string>());
+		lines["Desk"].Add("", "Ahh... the desk. A great instrument for study, research, and\nthe exploration of literature and the arts.\nI think it got used, once...");
+
+		lines.Add("Stove", new Dictionary<string, string>());
+		lines["Stove"].Add("", "The one time the missus used the stove, Augustus was set on fire\nand I nearly melted my motherboard trying\nto control the flames...");
+
+		lines.Add("Sandbox", new Dictionary<string, string>());
+		lines["Sandbox"].Add("", "Augustus's sandbox... I caught him burying his feces in here, once...");
 	}
 
 	public string getDialogue(string name, Robot r) {
