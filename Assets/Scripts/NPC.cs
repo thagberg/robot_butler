@@ -6,6 +6,8 @@ using System.Collections.Generic;
 public class NPC : Clickable {
 
 	public Dialogue dialogue;
+	public List<string> acceptedItems;
+	public string holdingObjectName;
 
 	// Use this for initialization
 	void Start () {
@@ -21,7 +23,15 @@ public class NPC : Clickable {
 		GameObject dialogueText = GameObject.Find("Dialogue Text");
 		Text t = dialogueText.GetComponent<Text>();
 		t.text = dialogue.getDialogue(gameObject.name, r);
-		//Debug.Log(dialogue.getDialogue(r));
+	}
+
+	void TakeItem(Robot r) {
+		foreach (string item in acceptedItems) {
+			if (r.holdingObjectName.Equals(item)) {
+				holdingObjectName = r.holdingObjectName;
+				r.holdingObjectName = "";
+			}
+		}
 	}
 
 //	void OnCollisionEnter(Collision collision) {
@@ -30,6 +40,7 @@ public class NPC : Clickable {
 		if (player.name.Equals("Robot Butler")) {
 			Robot r = player.GetComponent<Robot>();
 			Talk(r);
+			TakeItem(r);
 		}
 	}
 }
