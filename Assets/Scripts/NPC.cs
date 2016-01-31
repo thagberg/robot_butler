@@ -8,6 +8,9 @@ public class NPC : Clickable {
 	public Dialogue dialogue;
 	public List<string> acceptedItems;
 	public string holdingObjectName;
+	public string killItemName;
+
+	private bool isAlive = true;
 
 	// Use this for initialization
 	void Start () {
@@ -30,6 +33,10 @@ public class NPC : Clickable {
 			if (r.holdingObjectName.Equals(item)) {
 				holdingObjectName = r.holdingObjectName;
 				r.holdingObjectName = "";
+
+				if (holdingObjectName.Equals(killItemName)) {
+					isAlive = false;
+				}
 			}
 		}
 	}
@@ -42,5 +49,9 @@ public class NPC : Clickable {
 			Talk(r);
 			TakeItem(r);
 		}
+	}
+
+	public bool IsAlive() {
+		return isAlive;
 	}
 }
